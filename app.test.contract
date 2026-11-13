@@ -1,0 +1,14 @@
+// Runs on any host: `bun scripts/agent.mjs <host> --test app.test.contract`
+// with EXACT_APP_DIR pointing at this directory (or `bun exact.mjs test <host>`).
+test "add, finish and delete"
+  expect text "count" == "0 left"
+  type "new-todo" "Buy milk"
+  tap "add"
+  type "new-todo" "Walk the dog"
+  type "new-todo" key "Enter"
+  expect text "count" == "2 left"
+  tap "toggle-1"
+  expect text "count" == "1 left"
+  tap "remove-1"
+  expect tree missing "todo-1"
+  expect tree has "todo-2"
